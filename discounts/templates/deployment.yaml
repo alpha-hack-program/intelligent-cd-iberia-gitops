@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "discounts.fullname" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "discounts.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "discounts.labels" . | nindent 8 }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - name: http
+          containerPort: {{ .Values.service.port }}
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /q/health/live
+            port: {{ .Values.service.port }}
+            scheme: HTTP
+          initialDelaySeconds: 0
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /q/health/ready
+            port: {{ .Values.service.port }}
+            scheme: HTTP
+          initialDelaySeconds: 0
+          periodSeconds: 30
+        resources:
+          limits:
+            cpu: {{ .Values.resources.limits.cpu }}
+            memory: {{ .Values.resources.limits.memory }}
+          requests:
+            cpu: {{ .Values.resources.requests.cpu }}
+            memory: {{ .Values.resources.requests.memory }}
+        envFrom:
+        - configMapRef:
+            name: {{ .Chart.Name }}-configmap-env-base
