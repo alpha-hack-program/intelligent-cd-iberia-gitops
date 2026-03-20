@@ -8,5 +8,6 @@ spec:
   - name: http
     port: {{ .Values.service.port }}
     targetPort: {{ .Values.service.targetPort }}
+    protocol: TCP
   selector:
     {{- include "discounts.selectorLabels" . | nindent 4 }}
