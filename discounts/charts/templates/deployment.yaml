@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "discounts.fullname" . }}
+  name: {{ .Release.Name }}-discounts
   labels:
     {{- include "discounts.labels" . | nindent 4 }}
 spec:
@@ -51,4 +51,4 @@ spec:
             memory: {{ .Values.resources.limits.memory }}
         envFrom:
         - configMapRef:
-            name: discounts-configmap-env-base
+            name: {{ .Release.Name }}-discounts-configmap-env-base
