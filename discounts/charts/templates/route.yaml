@@ -6,8 +6,8 @@ spec:
   port:
     targetPort: {{ .Values.route.targetPort }}
   tls:
-    termination: {{ .Values.route.tls.termination }}
     insecureEdgeTerminationPolicy: {{ .Values.route.tls.insecureEdgeTerminationPolicy }}
+    termination: {{ .Values.route.tls.termination }}
   to:
     kind: Service
     name: {{ .Release.Name }}-discounts
