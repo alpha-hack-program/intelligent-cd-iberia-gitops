@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ .Release.Name }}-discounts-configmap-env-base
-data:
-  application.colour: {{ .Values.config.application.colour | quote }}
-  application.mode: {{ .Values.config.application.mode | quote }}
-  application.version: {{ .Values.config.application.version | quote }}
-  quarkus.log.level: {{ .Values.config.quarkus.log.level | quote }}
