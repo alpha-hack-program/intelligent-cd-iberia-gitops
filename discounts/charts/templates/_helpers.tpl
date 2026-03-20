@@ -1,10 +1,10 @@
 {{ define "discounts.name" }}
-{{- .Chart.Name | trunc 63 | default .Chart.Name }}
+{{- .Chart.Name | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{ define "discounts.fullname" }}
 {{- if .Values.fullnameOverride }}
-{{- .Values.fullnameOverride | trunc 63 | default .Values.fullnameOverride }}
+{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
 {{- .Release.Name }}-{{ .Chart.Name }}
 {{- end }}
