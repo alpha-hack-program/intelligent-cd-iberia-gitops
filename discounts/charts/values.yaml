@@ -1,4 +1,4 @@
-# values for discounts
+# values for discounts chart
 replicaCount: 1
 
 image:
@@ -24,8 +24,10 @@ route:
     insecureEdgeTerminationPolicy: Redirect
 
 configmap:
-  data:
-    application.colour: black
-    application.mode: online
-    application.version: v1.0.1
-    quarkus.log.level: debug
+  application:
+    colour: black
+    mode: online
+    version: v1.0.1
+  quarkus:
+    log:
+      level: debug
