@@ -1,8 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "discounts.fullname" . }}-configmap-env-base
+  name: {{ .Chart.Name }}-configmap-env-base
 data:
-  {{- range $key, $value := .Values.configmap.data }}
-  {{ $key }}: {{ $value | quote }}
-  {{- end }}
+  application.colour: {{ .Values.configmap.application.colour }}
+  application.mode: {{ .Values.configmap.application.mode }}
+  application.version: {{ .Values.configmap.application.version }}
+  quarkus.log.level: {{ .Values.configmap.quarkus.log.level }}
