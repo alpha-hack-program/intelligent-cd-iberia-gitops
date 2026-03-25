@@ -12,5 +12,6 @@ rm -rf discounts/
 echo "Committing changes..."
 git add -A
 git commit -m "🔥 Cleanup gitops configuration 🔥"
+git push
 
 echo "Done!"
