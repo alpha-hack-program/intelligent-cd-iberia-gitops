@@ -7,10 +7,10 @@ oc delete ns/discounts-gitops --ignore-not-found
 oc delete ns/discounts-validation --ignore-not-found
 
 echo "Removing discounts directory..."
+git pull
 rm -rf discounts/
 
 echo "Committing changes..."
-git pull
 git add -A
 git commit -m "🔥 Cleanup gitops configuration 🔥"
 git push
