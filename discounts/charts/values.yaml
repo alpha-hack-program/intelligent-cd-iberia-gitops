@@ -1,4 +1,4 @@
-# values for discounts chart
+# values for discounts
 replicaCount: 1
 
 image:
@@ -20,8 +20,8 @@ service:
 
 route:
   tls:
-    termination: edge
     insecureEdgeTerminationPolicy: Redirect
+    termination: edge
 
 configmap:
   data:
