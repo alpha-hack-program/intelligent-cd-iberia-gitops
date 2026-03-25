@@ -1,4 +1,4 @@
-# values for discounts chart
+# values for discounts
 replicaCount: 1
 
 image:
@@ -8,11 +8,11 @@ image:
 
 resources:
   requests:
-    memory: "256Mi"
-    cpu: "250m"
+    cpu: 100m
+    memory: 128Mi
   limits:
-    memory: "512Mi"
-    cpu: "500m"
+    cpu: 200m
+    memory: 256Mi
 
 service:
   port: 8080
@@ -21,15 +21,13 @@ service:
 
 route:
   tls:
-    insecureEdgeTerminationPolicy: Redirect
     termination: edge
+    insecureEdgeTerminationPolicy: Redirect
   wildcardPolicy: None
 
 configmap:
-  application:
-    colour: black
-    mode: online
-    version: v1.0.1
-  quarkus:
-    log:
-      level: debug
+  data:
+    application.colour: black
+    application.mode: online
+    application.version: v1.0.1
+    quarkus.log.level: debug
