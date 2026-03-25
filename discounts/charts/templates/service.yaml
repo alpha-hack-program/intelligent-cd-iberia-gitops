@@ -9,3 +9,4 @@ spec:
     targetPort: {{ .Values.service.targetPort }}
   selector:
     {{- include "discounts.selectorLabels" . | nindent 4 }}
+  type: ClusterIP
