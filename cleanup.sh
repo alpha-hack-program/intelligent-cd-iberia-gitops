@@ -10,6 +10,7 @@ echo "Removing discounts directory..."
 rm -rf discounts/
 
 echo "Committing changes..."
+git pull
 git add -A
 git commit -m "🔥 Cleanup gitops configuration 🔥"
 git push
