@@ -6,11 +6,11 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "discounts.selectorLabels" | nindent 6 }}
+      {{- include "discounts.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       labels:
-        {{- include "discounts.labels" | nindent 8 }}
+        {{- include "discounts.labels" . | nindent 8 }}
     spec:
       containers:
       - name: {{ .Chart.Name }}
@@ -20,33 +20,23 @@ spec:
         - name: http
           containerPort: {{ .Values.service.port }}
           protocol: TCP
+        livenessProbe:
+          tcpSocket:
+            port: {{ .Values.service.port }}
+          initialDelaySeconds: 15
+          periodSeconds: 15
+        readinessProbe:
+          tcpSocket:
+            port: {{ .Values.service.port }}
+          initialDelaySeconds: 5
+          periodSeconds: 5
         resources:
           requests:
-            memory: {{ .Values.resources.requests.memory }}
             cpu: {{ .Values.resources.requests.cpu }}
+            memory: {{ .Values.resources.requests.memory }}
           limits:
-            memory: {{ .Values.resources.limits.memory }}
             cpu: {{ .Values.resources.limits.cpu }}
+            memory: {{ .Values.resources.limits.memory }}
         envFrom:
         - configMapRef:
             name: {{ .Chart.Name }}-configmap-env-base
-        livenessProbe:
-          failureThreshold: 3
-          httpGet:
-            path: /q/health/live
-            port: {{ .Values.service.port }}
-            scheme: HTTP
-          initialDelaySeconds: 30
-          periodSeconds: 30
-          successThreshold: 1
-          timeoutSeconds: 10
-        readinessProbe:
-          failureThreshold: 3
-          httpGet:
-            path: /q/health/ready
-            port: {{ .Values.service.port }}
-            scheme: HTTP
-          initialDelaySeconds: 5
-          periodSeconds: 30
-          successThreshold: 1
-          timeoutSeconds: 10
