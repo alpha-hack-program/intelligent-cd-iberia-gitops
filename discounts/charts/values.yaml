@@ -7,11 +7,11 @@ image:
   pullPolicy: IfNotPresent
 
 resources:
-  limits:
-    cpu: 500m
-    memory: 512Mi
   requests:
-    cpu: 250m
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 200m
     memory: 256Mi
 
 service:
@@ -20,12 +20,14 @@ service:
 
 route:
   tls:
-    insecureEdgeTerminationPolicy: Redirect
     termination: edge
+    insecureEdgeTerminationPolicy: Redirect
 
 configmap:
-  data:
-    application.colour: black
-    application.mode: online
-    application.version: v1.0.1
-    quarkus.log.level: debug
+  application:
+    colour: black
+    mode: online
+    version: v1.0.1
+  quarkus:
+    log:
+      level: debug
