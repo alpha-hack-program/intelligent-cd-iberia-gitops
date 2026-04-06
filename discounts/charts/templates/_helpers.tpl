@@ -34,9 +34,11 @@ Create chart name and version as used by the chart label.
 Common labels
 */}}
 {{- define "discounts.labels" -}}
-app.kubernetes.io/name: {{ include "discounts.name" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}
-app.kubernetes.io/version: {{ .Chart.AppVersion }}
+helm.sh/chart: {{ include "discounts.chart" . }}
+{{ include "discounts.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
 
