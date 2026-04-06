@@ -1,5 +1,5 @@
-# values for discounts
-replicaCount: 1
+# values for discounts chart
+replicaCount: 3
 
 image:
   repository: quay.io/dseveria/discounts
@@ -7,11 +7,11 @@ image:
   pullPolicy: IfNotPresent
 
 resources:
-  requests:
-    cpu: 100m
-    memory: 128Mi
   limits:
-    cpu: 200m
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
     memory: 256Mi
 
 service:
