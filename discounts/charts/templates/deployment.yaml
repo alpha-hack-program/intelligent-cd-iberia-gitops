@@ -21,22 +21,26 @@ spec:
           containerPort: {{ .Values.service.port }}
           protocol: TCP
         livenessProbe:
-          tcpSocket:
+          httpGet:
+            path: /q/health/live
             port: {{ .Values.service.port }}
-          initialDelaySeconds: 15
-          periodSeconds: 15
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 30
         readinessProbe:
-          tcpSocket:
+          httpGet:
+            path: /q/health/ready
             port: {{ .Values.service.port }}
+            scheme: HTTP
           initialDelaySeconds: 5
-          periodSeconds: 5
+          periodSeconds: 30
         resources:
-          requests:
-            cpu: {{ .Values.resources.requests.cpu }}
-            memory: {{ .Values.resources.requests.memory }}
           limits:
             cpu: {{ .Values.resources.limits.cpu }}
             memory: {{ .Values.resources.limits.memory }}
+          requests:
+            cpu: {{ .Values.resources.requests.cpu }}
+            memory: {{ .Values.resources.requests.memory }}
         envFrom:
         - configMapRef:
             name: {{ .Chart.Name }}-configmap-env-base
