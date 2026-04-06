@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ .Chart.Name }}-configmap-env-base
-data:
-  application.colour: {{ .Values.configmap.application.colour | quote }}
-  application.mode: {{ .Values.configmap.application.mode | quote }}
-  application.version: {{ .Values.configmap.application.version | quote }}
-  quarkus.log.level: {{ .Values.configmap.quarkus.log.level | quote }}
