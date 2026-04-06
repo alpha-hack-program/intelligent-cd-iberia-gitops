@@ -1,0 +1,33 @@
+# values for discounts
+replicaCount: 1
+
+image:
+  repository: quay.io/dseveria/discounts
+  tag: v1.0.1
+  pullPolicy: IfNotPresent
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
+
+service:
+  port: 8080
+  targetPort: 8080
+  type: ClusterIP
+
+route:
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None
+
+configmap:
+  data:
+    application.colour: black
+    application.mode: online
+    application.version: v1.0.1
+    quarkus.log.level: debug
