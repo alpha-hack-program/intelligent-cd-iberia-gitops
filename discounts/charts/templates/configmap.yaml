@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "discounts.fullname" . }}-configmap-env-base
+  name: {{ .Chart.Name }}-configmap-env-base
 data:
   {{- range $key, $value := .Values.configmap.data }}
   {{ $key }}: {{ $value | quote }}
